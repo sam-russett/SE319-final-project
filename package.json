@@ -5,16 +5,17 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "server": "nodemon backend/server/js",
+    "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:import": "node backend/importScript.js"
+    "data:import": "node backend/seederScript.js"
   },
   "author": "Sam Russett",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "mongodb": "^5.4.0",
     "mongoose": "^7.1.0"
   },
   "devDependencies": {
