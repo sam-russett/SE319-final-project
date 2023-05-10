@@ -2,69 +2,73 @@ import "./FormScreen.css";
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+//Components
+import CartItem from "../components/CartItem";
+
+//Actions
+import {addToCart, removeFromCart} from '../redux/actions/cartActions';
+import { userInfo } from './FormScreen';
+
 
 const OrderSummaryScreen = () => {
-    let name = document.getElementById("inputName");
+    var username = userInfo.username;
+    var email = userInfo.email;
+    var card = userInfo.card;
+    var address = userInfo.address;
+    var address2 = userInfo.address2;
+    var city = userInfo.city;
+    var state = userInfo.state;
+    var zip = userInfo.zip;
+
+    const cart = useSelector(state => state.cart);
+    const { cartItems } = cart;
+
+    const getCartSubTotal = () => {
+        return cartItems.reduce((price, item) => item.price * item.qty + price, 0);
+    }
 
     return (
-        <form>
-            <div className="formscreen">
+        <div className="formscreen">
                 <div className="formscreen_left">
                     <h2>Order Summary</h2>
                     {/* name */}
                     <div>
-                        <p>{name} </p>
-                        <input type="text" class="form-control" id="inputName"></input>
+                        <p><h4>Name: </h4>{username}</p>
                     </div>
                     {/* email */}
                     <div>
-                        <label for="inputEmail4" class="form-label">Email </label>
-                        <input type="email" class="form-control" id="inputEmail4"></input>
+                        <p><h4>Email: </h4>{email}</p>
                     </div>
                     {/* card */}
                     <div>
-                        <label for="inputCard" class="form-label">Card </label>
-                        <input type="text" id="inputCard" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" aria-label="Username" aria-describedby="basic-addon1"></input>
+                        <p><h4>Card: </h4>{card}</p>
                     </div>
                     {/* address */}
                     <div>
-                        <label for="inputAddress" class="form-label">Address </label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"></input>
+                        <p><h4>Address: </h4>{address}</p>
                     </div>
                     {/* address 2 */}
                     <div> 
-                        <label for="inputAddress2" class="form-label">Address 2 </label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"></input>
+                        <p><h4>Address 2: </h4>{address2}</p>
                     </div>
                     {/* city */}
                     <div>
-                        <label for="inputCity" class="form-label">City </label>
-                        <input type="text" class="form-control" id="inputCity"></input>
+                        <p><h4>City: </h4>{city}</p>
                     </div>
                     {/* state */}
                     <div>
-                        <label for="inputState" class="form-label">State </label>
-                        <input type="text" class="form-control" id="inputState"></input>
+                        <p><h4>State : </h4>{state}</p>
                     </div>
                     {/* zip code */}
                     <div>
-                        <label for="inputZip" class="form-label">Zip </label>
-                        <input type="text" class="form-control" id="inputZip"></input>
+                        <p><h4>Zip Code: </h4>{zip}</p>
                     </div>
-                    <div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck"></input>
-                            <label class="form-check-label" for="gridCheck">
-                                Check me out
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-success"> <i class="bi-bag-check"></i> Order</button>
+                    {/* total */}
+                    <div class="total-price">
+                        <p><h4>Total: </h4>${getCartSubTotal()}</p>
                     </div>
                 </div>
             </div>
-        </form>
     )
 };
 
